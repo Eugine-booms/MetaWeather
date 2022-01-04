@@ -1,6 +1,7 @@
 ﻿using MetaWeather.Models;
 
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -24,10 +25,18 @@ namespace MetaWeather
         //    }
         //};
 
-        public async Task<WheatherLocation[]> GetLocationByName(string name, CancellationToken cancel = default)
+        public async Task<WheatherLocation[]> GetLocation(string name, CancellationToken cancel = default)
         {
             return await _client
                 .GetFromJsonAsync<WheatherLocation[]>($"api/location/search/?query={name}"/*, __jsonOptions*/, cancel)
+                .ConfigureAwait(false);
+        }
+        public async Task<WheatherLocation[]> GetLocation((double Latitude, double Longitude) location, CancellationToken cancel = default)
+        {
+            var latlong = $"{location.Latitude.ToString(CultureInfo.InvariantCulture)},{location.Longitude.ToString(CultureInfo.InvariantCulture)}";
+
+            return await _client
+                .GetFromJsonAsync<WheatherLocation[]>($"api/location/search/?lattlong={latlong}", cancel)
                 .ConfigureAwait(false);
         }
 

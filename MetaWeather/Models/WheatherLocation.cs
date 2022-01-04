@@ -20,5 +20,7 @@ namespace MetaWeather.Models
         [JsonPropertyName("distance")]
         public int Distance { get; set; }
 
+        public override string ToString() => $"[{Id}] {Title} ({Type}):{Location} ({Distance})";
+       
     }
 }

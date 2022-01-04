@@ -28,16 +28,17 @@ namespace MetaWeather.TestConsole
             await host.StartAsync();
             var weather = Services.GetRequiredService<MetaWeatherClient>();
 
-            var location = await weather.GetLocationByName("Moscow");
+            var moscow = await weather.GetLocation("Moscow");
 
+            var locations = await weather.GetLocation(moscow[0].Location);
 
+            foreach (var item in locations)
+            {
+                Console.WriteLine(item);
+            }
             Console.WriteLine("Завершено");
             Console.ReadLine();
             await host.StopAsync();
-
-
-
-            Console.WriteLine("Hello World!");
         }
     }
 }

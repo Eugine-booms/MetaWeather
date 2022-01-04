@@ -9,10 +9,10 @@ namespace MetaWeather.TestConsole
     class Program
     {
         private static IHost __hosting;
-        public static IHost Hosting => __hosting ??= CheateHostBuilder(Environment.GetCommandLineArgs()).Build();
+        public static IHost Hosting => __hosting ??= CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
         public static IServiceProvider Services => Hosting.Services;
-        private static IHostBuilder CheateHostBuilder(string[] args) => Host
+        private static IHostBuilder CreateHostBuilder(string[] args) => Host
             .CreateDefaultBuilder(args)
             .ConfigureServices(ConfigureServises);
 

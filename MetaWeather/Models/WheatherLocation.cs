@@ -13,6 +13,4 @@ namespace MetaWeather.Models
         public override string ToString() => $"[{Id}] {Title} ({Type}):{Coordinates} ({Distance})";
        
     }
-
-   
 }

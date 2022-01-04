@@ -45,6 +45,9 @@ namespace MetaWeather
             return await _client.GetFromJsonAsync<LocationInfo>($"/api/location/{woeId}/").ConfigureAwait(false);
         }
 
+        public Task<LocationInfo> GetInfo(Location location, CancellationToken cancellation = default) =>
+          GetInfo(location.Id, cancellation);
+        
     }
 }
                                                                             

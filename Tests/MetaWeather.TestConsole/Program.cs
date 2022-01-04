@@ -30,12 +30,16 @@ namespace MetaWeather.TestConsole
 
             var moscow = await weather.GetLocation("Moscow");
 
-            var locations = await weather.GetLocation(moscow[0].Location);
+            //  var locations = await weather.GetLocation(moscow[0].Location);
+            //foreach (var item in locations)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
-            foreach (var item in locations)
-            {
-                Console.WriteLine(item);
-            }
+            var info = await weather.GetInfo(moscow[0].Id);
+
+            Console.WriteLine(info);
+
             Console.WriteLine("Завершено");
             Console.ReadLine();
             await host.StopAsync();

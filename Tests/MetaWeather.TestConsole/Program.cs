@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Polly;
+using Polly.Extensions.Http;
+
 using System;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MetaWeather.TestConsole
@@ -19,7 +23,23 @@ namespace MetaWeather.TestConsole
 
         private static void ConfigureServises(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddHttpClient<MetaWeatherClient>(client => client.BaseAddress = new Uri(host.Configuration["MetaWeather"]));
+            services
+                .AddHttpClient<MetaWeatherClient>(client => 
+                    client.BaseAddress = new Uri(host.Configuration["MetaWeather"])
+                    )
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+                .AddPolicyHandler(GetRetryPolicy());
+        }
+
+        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            var jitter = new Random();
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(6, retry_attept
+                    => TimeSpan.FromSeconds(Math.Pow(2, retry_attept))+
+                       TimeSpan.FromMilliseconds(jitter.Next(0, 1000)))
+                ;
 
         }
 

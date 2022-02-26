@@ -1,8 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿ <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	  <LangVersion>9.0</LangVersion>
+	  <SignAssembly>true</SignAssembly>
+	  <AssemblyOriginatorKeyFile>MetaWeather.snk</AssemblyOriginatorKeyFile>
+	  <Authors>boomsa</Authors>
+	  <Description>Клиент для MetaWeather Api</Description>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageProjectUrl>https://github.com/Eugine-booms/MetaWeather</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/Eugine-booms/MetaWeather.git</RepositoryUrl>
+	  <PackageTags>Weather, MetaWeather, WebApi</PackageTags>
+	  <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

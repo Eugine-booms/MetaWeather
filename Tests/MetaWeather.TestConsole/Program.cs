@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace MetaWeather.TestConsole
@@ -37,9 +38,9 @@ namespace MetaWeather.TestConsole
             //}
 
             var info = await weather.GetInfo(moscow[0]);
-
             Console.WriteLine(info);
-
+            var weather_info = await weather.GetWeather(moscow[0].Id, DateTime.Now);
+            Console.WriteLine(weather_info);
             Console.WriteLine("Завершено");
             Console.ReadLine();
             await host.StopAsync();
